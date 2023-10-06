@@ -50,8 +50,8 @@ def get_pairs_values_for_posthoc_dunn(
     value_vars: str,
     id_vars: str = "sub_category",
     p_adjust: str = "fdr_bh",
-    segment_by: Optional[List] = None,
-) -> Tuple[List[Tuple[str, str]], List[float]]:
+    segment_by=None,
+):
     """
     This function performs a post-hoc Dunn test for multiple comparisons on a given DataFrame and returns the pairs and p-values of the significant comparisons.
 
@@ -254,4 +254,30 @@ def transform_data(df):
             pd.to_numeric, errors="coerce"
         )  # Use errors="coerce" to convert non-numeric to NaN
         .fillna(0)
+    )
+def return_sns_box(df, x, y, ax, order=None):
+    """
+    This function creates and returns a seaborn boxplot on a given DataFrame and axes.
+
+    Inputs:
+    df (pd.DataFrame): DataFrame containing the data to be plotted
+    x (str): The column name in the DataFrame to be used as the x-axis variable
+    y (str): The column name in the DataFrame to be used as the y-axis variable
+    ax (matplotlib axes object): The axes on which the plot will be drawn
+
+    Outputs:
+    seaborn boxplot object: The boxplot object that is returned can be further customized using seaborn or matplotlib functions
+    """
+    return sns.boxplot(
+        data=df,
+        x=x,
+        y=y,
+        palette=sns.color_palette("colorblind"),
+        flierprops=dict(
+            marker="o", markersize=2, markerfacecolor="white", linestyle="none"
+        ),
+        linewidth=1,
+        width=0.5,
+        order=order,
+        ax=ax,
     )
