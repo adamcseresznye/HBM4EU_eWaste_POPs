@@ -354,3 +354,46 @@ def plot_diagnostics(
     shapiro_stat, shapiro_pvalue = stats.shapiro(residuals)
     print("Shapiro-Wilk test statistic:", shapiro_stat)
     print("Shapiro-Wilk test p-value:", shapiro_pvalue)
+
+
+def is_detected(x, matrix):
+    """
+    Checks if the provided object, typically used with apply, goes through the columns.
+    If the column is named 'BDE 209' and the column's value is 5, it returns True.
+    In all other columns, it returns True if the instance is 0.5, otherwise False.
+
+    Args:
+        x: The object or value to be checked.
+
+    Returns:
+        True if x represents a 'BDE 209' column with a value of 5,
+        or if x is 0.5 in any other column. Otherwise, returns False.
+
+    Example Usage:
+    --------------
+    import pandas as pd
+
+    # Sample DataFrame
+    data = {
+        'Column1': [5, 0.5, 5, 1],
+        'Column2': [0.5, 0.5, 0.5, 5],
+        'BDE 209': [5, 0.5, 1, 5],
+    }
+
+    df = pd.DataFrame(data)
+
+    # Apply the function to each column
+    results = df.apply(is_detected_wristband)
+
+    print(results)
+    """
+    if matrix == "wristband":
+        if x.name == "BDE 209" or x.name == "BDE-209":
+            return x == 5
+        else:
+            return x == 0.5
+    if matrix == "dust":
+        if x.name == "BDE 209" or x.name == "BDE-209":
+            return x == 0.5
+        else:
+            return x == 0.05
