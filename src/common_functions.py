@@ -7,9 +7,11 @@ import numpy as np
 import pandas as pd
 import scikit_posthocs as sp
 import seaborn as sns
+import statsmodels.api as sm
+from scipy import stats
 from scipy.stats import kstest, mannwhitneyu, shapiro
 
-from data import utils
+import utils
 
 
 def create_boxplot(
@@ -40,7 +42,7 @@ def create_boxplot(
         width=0.5,
         order=order,
         ax=ax,
-        **kwargs  # Pass any additional keyword arguments to the seaborn boxplot
+        **kwargs,  # Pass any additional keyword arguments to the seaborn boxplot
     )
 
 
@@ -255,6 +257,8 @@ def transform_data(df):
         )  # Use errors="coerce" to convert non-numeric to NaN
         .fillna(0)
     )
+
+
 def return_sns_box(df, x, y, ax, order=None):
     """
     This function creates and returns a seaborn boxplot on a given DataFrame and axes.
@@ -281,3 +285,72 @@ def return_sns_box(df, x, y, ax, order=None):
         order=order,
         ax=ax,
     )
+
+
+def plot_diagnostics(
+    df: pd.DataFrame,
+    model,
+    dependent_variable: str,
+    figsize: tuple = (5, 5),
+    save_to_disk: bool = False,
+    folder_path: Path = utils.Configuration.PLOTS,
+) -> None:
+    """
+    Plot diagnostics for a Generalized Linear Model (GLM).
+
+    This function generates a diagnostic plot for a GLM, including observed vs. fitted values,
+    a scatterplot of residuals vs. fitted values, a histogram of residuals, and a Q-Q plot of residuals.
+
+    Args:
+        df (pd.DataFrame): The DataFrame containing the data used in the model.
+        model (sm.genmod.generalized_linear_model.GLM): The fitted GLM model.
+        dependent_variable (str): The name of the dependent variable in the DataFrame.
+        figsize (tuple, optional): The size of the figure (width, height). Defaults to (5, 5).
+        save_to_disk (bool, optional): Whether to save the diagnostic plot to disk. Defaults to False.
+        folder_path (Path, optional): The folder path where the diagnostic plot will be saved.
+            Defaults to the 'PLOTS' directory specified in the 'utils.Configuration'.
+
+    Returns:
+        None
+
+    Note:
+        - The diagnostic plot is displayed but not saved by default. Set `save_to_disk` to True to save it.
+        - The Shapiro-Wilk normality test is performed on the residuals, and the results are printed.
+
+    Example:
+        To plot diagnostics for a GLM model and save the plot to disk:
+        >>> plot_diagnostics(df, model, "target_variable", figsize=(8, 6), save_to_disk=True,
+                            folder_path=Path("/path/to/your/directory"))
+    """
+    fig, axs = plt.subplots(2, 2, figsize=figsize)
+
+    fitted_values = model.fittedvalues
+
+    axs[0, 0].scatter(np.sqrt(df[dependent_variable]), fitted_values)
+    axs[0, 0].set_xlabel("Observed values")
+    axs[0, 0].set_ylabel("Fitted values")
+
+    residuals = model.resid_response
+
+    axs[0, 1].scatter(fitted_values, residuals)
+    axs[0, 1].set_xlabel("Fitted values")
+    axs[0, 1].set_ylabel("Residuals")
+
+    sns.histplot(residuals, kde=True, ax=axs[1, 0])
+    axs[1, 0].set_xlabel("Residuals")
+    axs[1, 0].set_ylabel("Frequency")
+
+    sm.qqplot(residuals, line="s", ax=axs[1, 1])
+
+    plt.suptitle(f"Dependent variable: {dependent_variable}")
+    plt.tight_layout()
+
+    if save_to_disk:
+        plt.savefig(
+            folder_path.joinpath(str(f"{dependent_variable}_GLM_diagnostics.png")),
+            dpi=600,
+        )
+
+    shapiro_stat, shapiro_pvalue = stats.shapiro(residuals)
+    print("Shapiro-Wilk test statistic:", shapiro_stat)
+    print("Shapiro-Wilk test p-value:", shapiro_pvalue)
