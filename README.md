@@ -1,57 +1,17 @@
 HBM4EU_eWaste_POPs
 ==============================
 
-A short description of the project.
+This source code has been developed to complement the research paper titled "HBM4EU E-waste Study: Occurrence of Persistent Organic Pollutants in Blood, Silicone Wristbands, and Settled Dust among E-Waste Recycling Workers in the European Union"
 
-Project Organization
-------------
+Adam Cseresznye1, Emilie  M. Hardy2, Paulien Cleys1, Yu Ait Bamai1,3, Giulia Poma1, Govindan Malarvannan1, Paul T.J. Scheepers4, Susana Viegas5, Carla Martins5, Simo P. Porras6, Tiina Santonen6, Lode Godderis7,10, Jelle Verdonck7, Katrien Poels7, Maria João Silva8, Henriqueta Louro8, Inese Martinsone9, Lāsma Akūlova9, Maurice van Dael4, Selma Mahiout6, Radu  Corneliu Duca2, Adrian Covaci1*
 
-    ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
-    │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
-
-
---------
-
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+1. Toxicological Centre, Department of Pharmaceutical Sciences, University of Antwerp, Antwerpen, Belgium,
+2. Environmental Hygiene and Human Biological Monitoring, Department of Health Protection, Laboratoire National de Santé (LNS), Luxembourg, Luxembourg,
+3. Center for Environmental and Health Sciences, Hokkaido University, Sapporo, Japan, 4Radboud Institute for Biological and Environmental Sciences, Radboud University, Nijmegen, The Netherlands,
+5. NOVA National School of Public Health, Public Health Research Centre, Comprehensive Health Research Center, CHRC, NOVA University Lisbon, Lisbon, Portugal
+6. Finnish Institute of Occupational Health, Helsinki, Finland,
+7. Environment and Health, Department of Public Health and Primary Care, KU Leuven, Leuven, Belgium,
+8. ToxOmics -Centre for Toxicogenomics and Human Health, Department of Human Genetics, National Institute of Health Dr. Ricardo Jorge (INSA), NOVA Medical School, Lisbon, Portugal,
+9. Institute of Occupational Safety and Environmental Health, Rīgas Stradiņš University, Riga, Latvia
+10. Idewe, External Service for Prevention and Protection at Work, Interleuvenlaan 58, 3001
+Heverlee, Belgium
