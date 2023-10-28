@@ -356,18 +356,19 @@ def plot_diagnostics(
     print("Shapiro-Wilk test p-value:", shapiro_pvalue)
 
 
-def is_detected(x, matrix):
+def is_detected(x, matrix: str) -> bool:
     """
     Checks if the provided object, typically used with apply, goes through the columns.
-    If the column is named 'BDE 209' and the column's value is 5, it returns True.
-    In all other columns, it returns True if the instance is 0.5, otherwise False.
+    If the column is named 'BDE 209' (or 'BDE-209' for wristband matrix) and the column's value is 5, it returns True.
+    In all other columns, it returns True if the instance is 0.5 (or 0.05 for the dust matrix), otherwise False.
 
     Args:
         x: The object or value to be checked.
+        matrix: A string specifying the matrix, either "wristband" or "dust."
 
     Returns:
-        True if x represents a 'BDE 209' column with a value of 5,
-        or if x is 0.5 in any other column. Otherwise, returns False.
+        True if x represents a 'BDE 209' column with a value of 5 (wristband) or 0.05 (dust),
+        or if x is 0.5 (wristband) or 0.05 (dust) in any other column. Otherwise, returns False.
 
     Example Usage:
     --------------
@@ -382,10 +383,17 @@ def is_detected(x, matrix):
 
     df = pd.DataFrame(data)
 
-    # Apply the function to each column
-    results = df.apply(is_detected_wristband)
+    # Apply the function to each column for wristband matrix
+    results_wristband = df.apply(is_detected, matrix="wristband")
 
-    print(results)
+    # Apply the function to each column for dust matrix
+    results_dust = df.apply(is_detected, matrix="dust")
+
+    print("Results for Wristband Matrix:")
+    print(results_wristband)
+
+    print("Results for Dust Matrix:")
+    print(results_dust)
     """
     if matrix == "wristband":
         if x.name == "BDE 209" or x.name == "BDE-209":
