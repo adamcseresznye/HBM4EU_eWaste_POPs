@@ -327,13 +327,13 @@ def plot_diagnostics(
     fitted_values = model.fittedvalues
 
     axs[0, 0].scatter(np.sqrt(df[dependent_variable]), fitted_values)
-    axs[0, 0].set_xlabel("Observed values")
-    axs[0, 0].set_ylabel("Fitted values")
+    axs[0, 0].set_xlabel("Actual values")
+    axs[0, 0].set_ylabel("Predicted values")
 
     residuals = model.resid_response
 
     axs[0, 1].scatter(fitted_values, residuals)
-    axs[0, 1].set_xlabel("Fitted values")
+    axs[0, 1].set_xlabel("Predicted values")
     axs[0, 1].set_ylabel("Residuals")
 
     sns.histplot(residuals, kde=True, ax=axs[1, 0])
