@@ -10,9 +10,3 @@ class Configuration:
     RAW_DATA_PATH = Path(__file__).parents[1].joinpath("data/raw")
     INTERIM_DATA_PATH = Path(__file__).parents[1].joinpath("data/interim")
     PLOTS = Path(__file__).parents[1].joinpath("plots")
-
-
-def seed_everything(seed):
-    random.seed(seed)
-    np.random.seed(seed)
-    os.environ["PYTHONHASHSEED"] = str(seed)
