@@ -336,7 +336,8 @@ def plot_diagnostics(
     axs[0, 1].set_xlabel("Predicted values")
     axs[0, 1].set_ylabel("Residuals")
 
-    sns.histplot(residuals, kde=True, ax=axs[1, 0])
+    # sns.histplot(residuals, kde=True, ax=axs[1, 0])
+    axs[1, 0].hist(residuals, bins=20, density=True)
     axs[1, 0].set_xlabel("Residuals")
     axs[1, 0].set_ylabel("Frequency")
 
