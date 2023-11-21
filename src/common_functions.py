@@ -329,21 +329,65 @@ def plot_diagnostics(
     axs[0, 0].scatter(np.sqrt(df[dependent_variable]), fitted_values)
     axs[0, 0].set_xlabel("Actual values")
     axs[0, 0].set_ylabel("Predicted values")
+    axs[0, 0].text(
+        -0.15,
+        1.15,
+        "A",
+        transform=axs[0, 0].transAxes,
+        fontsize=12,
+        fontweight="bold",
+        va="top",
+    )
 
     residuals = model.resid_response
 
     axs[0, 1].scatter(fitted_values, residuals)
     axs[0, 1].set_xlabel("Predicted values")
     axs[0, 1].set_ylabel("Residuals")
+    axs[0, 1].text(
+        -0.15,
+        1.15,
+        "B",
+        transform=axs[0, 1].transAxes,
+        fontsize=12,
+        fontweight="bold",
+        va="top",
+    )
 
     # sns.histplot(residuals, kde=True, ax=axs[1, 0])
-    axs[1, 0].hist(residuals, bins=20, density=True)
+    axs[1, 0].hist(
+        residuals,
+        bins=20,
+        density=False,
+        edgecolor="black",
+        linewidth=1,
+    )
     axs[1, 0].set_xlabel("Residuals")
     axs[1, 0].set_ylabel("Frequency")
+    axs[1, 0].text(
+        -0.15,
+        1.15,
+        "C",
+        transform=axs[1, 0].transAxes,
+        fontsize=12,
+        fontweight="bold",
+        va="top",
+    )
 
     sm.qqplot(residuals, line="s", ax=axs[1, 1])
+    axs[1, 1].text(
+        -0.15,
+        1.15,
+        "D",
+        transform=axs[1, 1].transAxes,
+        fontsize=12,
+        fontweight="bold",
+        va="top",
+    )
 
-    plt.suptitle(f"Dependent variable: {dependent_variable}")
+    plt.suptitle(
+        f"Model Performance Evaluation: {dependent_variable.replace('_', ' ')}"
+    )
     plt.tight_layout()
 
     if save_to_disk:
